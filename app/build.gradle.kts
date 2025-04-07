@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.sih"
+    namespace = "com.example.croptrack"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.sih"
+        applicationId = "com.example.croptrack"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

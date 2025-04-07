@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SIH"
+rootProject.name = "CropTrack"
 include(":app")
  
