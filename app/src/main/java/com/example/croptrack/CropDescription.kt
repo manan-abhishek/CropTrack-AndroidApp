@@ -31,7 +31,7 @@ class CropDescription : Fragment() {
         val cropImg: ImageView = view.findViewById(R.id.cropImg)
         val cropDes: TextView = view.findViewById(R.id.cropDes)
 
-        if(cropName == "wheat"){
+        if(cropName == "Wheat"){
             cropImg.setImageResource(R.drawable.wheat_image)
             cropImg.tag = "wheatImage"
 
@@ -93,7 +93,7 @@ class CropDescription : Fragment() {
                     "\n" +
                     "Minimum Support Price (MSP): Government ensures a fixed price for wheat"
         }
-        else if(cropName == "pea"){
+        else if(cropName == "Pea"){
             cropImg.setImageResource(R.drawable.pea_image)
             cropImg.tag = "peaImage"
 
@@ -155,7 +155,7 @@ class CropDescription : Fragment() {
                     "\n" +
                     "MSP for Pulses: Ensures price protection for farmers"
         }
-        else if(cropName == "onion"){
+        else if(cropName == "Onion"){
             cropImg.setImageResource(R.drawable.onion_image)
             cropImg.tag = "OnionImage"
 

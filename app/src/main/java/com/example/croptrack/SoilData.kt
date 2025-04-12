@@ -27,7 +27,7 @@ class SoilData : Fragment() {
     private lateinit var inputEC: TextInputEditText
     private lateinit var buttonUploadReport: Button
 
-    private lateinit var filePL: ActivityResultLauncher<Intent> //File PickerLauncher
+    private lateinit var filePL: ActivityResultLauncher<Intent> // File Picker Launcher
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +35,8 @@ class SoilData : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_soil_data, container, false)
 
-//        then a custom dialogBox to show:
-//        Crop Suitability Recommendation if ph is not good for crops then an alert dialogBox, Fertilizer Suggestions, download a report
+        // Initialize input fields.
+        val submit = view.findViewById<Button>(R.id.submit)
         inputPh = view.findViewById(R.id.inputPh)
         inputNitrogen = view.findViewById(R.id.inputNitrogen)
         inputPhosphorus = view.findViewById(R.id.inputPhosphorus)
@@ -44,49 +44,72 @@ class SoilData : Fragment() {
         inputMoisture = view.findViewById(R.id.inputMoisture)
         inputTexture = view.findViewById(R.id.inputTexture)
         inputEC = view.findViewById(R.id.inputEC)
-
-        val ph: Float = inputPh.text.toString().toFloat()
-        val moisture: Float = inputMoisture.text.toString().toFloat()
-
         buttonUploadReport = view.findViewById(R.id.buttonUploadReport)
 
-        if(ph in 6.5..8.5 && moisture in 20.0..60.0)
-            showSuitable()
-        else
-            showUnSuitable()
+        submit.setOnClickListener {
+            val ph = inputPh.text.toString()?:"null"
+            val moisture = inputMoisture.text.toString()?:"null"
 
-        filePL = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ){result ->
-            if(result.resultCode == Activity.RESULT_OK){
+            if (ph == null || moisture == null) {
+                Toast.makeText(requireContext(), "Please fills the details", Toast.LENGTH_SHORT).show()
+                // Handle invalid input case (e.g., return or show an error)
+            }
+            else if (ph.toFloatOrNull() != null && moisture.toFloatOrNull() != null) {
+                if (ph.toFloat() in 6.5..8.5 && moisture.toFloat() in 20.0..60.0)
+                    showSuitable()
+                else
+                    showUnSuitable()
+            } else {
+                Toast.makeText(requireContext(), "Soil data is incomplete", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Register file picker launcher.
+        filePL = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
                 val fileUri: Uri? = result.data?.data
-                if(fileUri != null){
+                if (fileUri != null) {
                     val saved = saveFileToInternal(requireContext(), fileUri, "report.pdf")
-                    if(saved){
-                        Toast.makeText(requireContext(), "We get your File successfully!", Toast.LENGTH_SHORT).show()
+                    if (saved) {
+                        Toast.makeText(requireContext(), "File uploaded successfully!", Toast.LENGTH_SHORT).show()
                     }
-                }else{
+                } else {
                     Toast.makeText(requireContext(), "No file selected", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        buttonUploadReport.setOnClickListener {
-            openFileChooser()
-        }
+        buttonUploadReport.setOnClickListener { openFileChooser() }
 
         return view
     }
-    private fun showSuitable(){
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_suitable, null)
-        AlertDialog.Builder(requireContext()).setView(view).show()
-    }
-    private fun showUnSuitable(){
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_unsuitable, null)
-        AlertDialog.Builder(requireContext()).setView(view).show()
+
+    // Helper function to parse a float input with error handling.
+    private fun parseFloatInput(input: TextInputEditText, fieldName: String): Float? {
+        return try {
+            val value = input.text.toString().toFloat()
+            value
+        } catch (e: NumberFormatException) {
+            Toast.makeText(requireContext(), "Please enter a valid $fieldName value", Toast.LENGTH_SHORT).show()
+            null
+        }
     }
 
-    private fun openFileChooser(){
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply{
+    private fun showSuitable() {
+        val suitableView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_suitable, null)
+        AlertDialog.Builder(requireContext())
+            .setView(suitableView)
+            .show()
+    }
+
+    private fun showUnSuitable() {
+        val unsuitableView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_unsuitable, null)
+        AlertDialog.Builder(requireContext())
+            .setView(unsuitableView)
+            .show()
+    }
+
+    private fun openFileChooser() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
             putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/pdf", "image/*"))
@@ -94,20 +117,18 @@ class SoilData : Fragment() {
         filePL.launch(intent)
     }
 
-    private fun saveFileToInternal(context: Context, uri: Uri, fileNme: String): Boolean{
-        return try{
+    private fun saveFileToInternal(context: Context, uri: Uri, fileName: String): Boolean {
+        return try {
             val input = context.contentResolver.openInputStream(uri)
-            val output = context.openFileOutput(fileNme, Context.MODE_PRIVATE)
-
+            val output = context.openFileOutput(fileName, Context.MODE_PRIVATE)
             input?.copyTo(output)
             input?.close()
             output.close()
-
             true
-        }catch(e : Exception){
-            Toast.makeText(requireContext(), "We didn't get the file", Toast.LENGTH_SHORT).show()
-
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "File upload failed", Toast.LENGTH_SHORT).show()
             false
         }
     }
 }
+

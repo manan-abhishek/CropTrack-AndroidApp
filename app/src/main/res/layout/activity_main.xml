@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#BEE3CB"
-        android:paddingTop="6dp"
+        android:paddingTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,6 +30,7 @@
             android:layout_gravity="start"/>
 
         <ImageView
+            android:id="@+id/userPhoto"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/user"
@@ -40,7 +41,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Notification Icon -->
+    <!-- Notification -->
     <ImageView
         android:id="@+id/notification"
         android:layout_width="36dp"
@@ -53,21 +54,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topToolbar"
         app:tint="#4BA26A" />
+
     <TextView
         android:id="@+id/notificationCount"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:background="#FF3D3D"
+        android:background="@drawable/circle_bg"
         android:text="5"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:gravity="center"
         android:padding="2dp"
-        android:visibility="gone"
+        android:elevation="12dp"
         app:layout_constraintTop_toTopOf="@id/notification"
         app:layout_constraintEnd_toEndOf="@id/notification"
         android:layout_marginTop="-6dp"
-        android:layout_marginEnd="-6dp"/>
+        android:layout_marginEnd="-6dp"
+        android:visibility="visible"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment"
@@ -100,20 +104,20 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottomtoolbarlayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/btnHome"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
@@ -122,25 +126,25 @@
                     android:id="@+id/homeIcon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/home"
                     android:layout_marginTop="6dp"
-                    app:tint="@android:color/white"/>
+                    android:src="@drawable/home"
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:id="@+id/home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Home"
+                    android:text="@string/home"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnClimate"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
@@ -151,22 +155,22 @@
                     android:layout_height="28dp"
                     android:layout_marginTop="6dp"
                     android:src="@drawable/climate"
-                    app:tint="@android:color/white"/>
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:id="@+id/climate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Climate"
+                    android:text="@string/climate"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnReel"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
@@ -177,22 +181,22 @@
                     android:layout_height="28dp"
                     android:layout_marginTop="6dp"
                     android:src="@drawable/explore"
-                    app:tint="@android:color/white"/>
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:id="@+id/reel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reel"
+                    android:text="@string/reel"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnRent"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
@@ -203,15 +207,15 @@
                     android:layout_height="28dp"
                     android:layout_marginTop="6dp"
                     android:src="@drawable/rent_equipments"
-                    app:tint="@android:color/white"/>
+                    app:tint="@android:color/white" />
 
                 <TextView
                     android:id="@+id/rent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rent"
+                    android:text="@string/rent"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 

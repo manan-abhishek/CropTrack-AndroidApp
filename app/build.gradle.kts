@@ -45,6 +45,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.6.2")
     implementation ("com.hbb20:ccp:2.7.3")
     implementation ("com.google.android.material:material:1.10.0")
+    implementation ("com.github.Drjacky:ImagePicker:2.3.22")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

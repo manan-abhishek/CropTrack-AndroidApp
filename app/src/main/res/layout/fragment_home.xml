@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Phagwara, Punjab"
+                    android:text="@string/address"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="italic"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="Sunny"
+                    android:text="@string/day"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -139,7 +139,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Add Crop"
+                            android:text="@string/addCrop"
                             android:textStyle="bold"
                             android:textColor="#4BA26A"
                             android:gravity="center"
@@ -181,7 +181,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Crop Progress"
+                            android:text="@string/cropprogress"
                             android:textStyle="bold"
                             android:textColor="#4BA26A"
                             android:gravity="center"
@@ -223,7 +223,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Soil Test"
+                            android:text="@string/soilTest"
                             android:textStyle="bold"
                             android:textColor="#4BA26A"
                             android:gravity="center"
@@ -265,7 +265,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload Image"
+                            android:text="@string/uploadImage"
                             android:textStyle="bold"
                             android:textColor="#4BA26A"
                             android:gravity="center"
@@ -292,7 +292,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feedback"
+                    android:text="@string/feedback"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_margin="6dp"/>
@@ -414,7 +414,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Explore"
+                    android:text="@string/explore"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_margin="6dp"/>
@@ -426,6 +426,7 @@
                 android:layout_height="wrap_content"
                 android:scrollbars="none">
                 <LinearLayout
+                    android:id="@+id/govtyojnas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"

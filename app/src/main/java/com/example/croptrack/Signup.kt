@@ -64,7 +64,7 @@ class Signup : Fragment() {
                 if (password == confirmPassword) {
 
                     //PUT THE THINGS IN sharedpreference...
-                    val sharedPrefernce = requireContext().getSharedPreferences("my_pref",Context.MODE_PRIVATE)
+                    val sharedPrefernce = requireContext().getSharedPreferences("user_data",Context.MODE_PRIVATE)
                     val editor = sharedPrefernce.edit()
                     editor.putString("name", name)
                     editor.putString("phone", phone)
@@ -76,11 +76,11 @@ class Signup : Fragment() {
                     startActivity(intent)
                     requireActivity().finish()
                 } else {
-                    cnfErr.text = "Passwords do not match"
+                    cnfErr.text = getString(R.string.cnfErr)
                 }
             } else {
                 highLight(nameInputLayout, phoneInputLayout, emailInputLayout, passwordInputLayout, confirmPasswordInputLayout)
-                ipErr.text = "Fill all the required details"
+                ipErr.text = getString(R.string.ipErr)
             }
         }
 
@@ -99,11 +99,13 @@ class Signup : Fragment() {
         googleIconLayout.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
 
         facebookIconLayout.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 

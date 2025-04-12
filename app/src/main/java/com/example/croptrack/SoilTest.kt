@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import com.google.android.material.card.MaterialCardView
 
 class SoilTest : Fragment() {
 
@@ -15,20 +15,21 @@ class SoilTest : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_soil_test, container, false)
 
-        val soilTest: LinearLayout = view.findViewById(R.id.testSoil)
-        val soilReport: LinearLayout = view.findViewById(R.id.soilReport)
-// soiltest name change to soilData
-        soilTest.setOnClickListener{
-            val soildata = SoilData()
+        val soilTest: MaterialCardView = view.findViewById(R.id.testSoil)
+        val soilReport: MaterialCardView = view.findViewById(R.id.soilReport)
+
+        soilTest.setOnClickListener {
+            val soilData = SoilData()
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment, soildata)
+                .replace(R.id.fragment, soilData)
                 .addToBackStack(null)
                 .commit()
         }
-        soilReport.setOnClickListener{
-            val soilreport = SoilReport()
+
+        soilReport.setOnClickListener {
+            val soilReportFragment = SoilReport()
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment, soilreport)
+                .replace(R.id.fragment, soilReportFragment)
                 .addToBackStack(null)
                 .commit()
         }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,6 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:tag="Wheat"
                 app:cardBackgroundColor="#BEE3CB"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
@@ -54,8 +54,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wheat"
-                        android:tag="Wheat"
+                        android:text="@string/wheat"
                         android:textStyle="bold"
                         android:textColor="#4BA26A"
                         android:gravity="center"
@@ -68,6 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:tag="Pea"
                 app:cardBackgroundColor="#BEE3CB"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
@@ -93,8 +93,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pea"
-                        android:tag="Pea"
+                        android:text="@string/pea"
                         android:textStyle="bold"
                         android:textColor="#4BA26A"
                         android:gravity="center"
@@ -107,6 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:tag="Onion"
                 app:cardBackgroundColor="#BEE3CB"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
@@ -132,8 +132,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Onion"
-                        android:tag="Onion"
+                        android:text="@string/onion"
                         android:textStyle="bold"
                         android:textColor="#4BA26A"
                         android:gravity="center"

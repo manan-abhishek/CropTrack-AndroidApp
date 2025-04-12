@@ -189,5 +189,19 @@
             android:elevation="4dp"
             android:layout_marginBottom="16dp" />
 
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:backgroundTint="#4BA26A"
+            android:padding="12dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp" />
+
     </LinearLayout>
 </ScrollView>

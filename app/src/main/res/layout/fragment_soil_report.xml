@@ -8,6 +8,7 @@
     android:layout_margin="12dp">
 
     <ImageView
+        android:id="@+id/soilReportImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/soilreportimage"
@@ -19,7 +20,7 @@
         android:id="@+id/downloadBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Download"
+        android:text="@string/download"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="16sp"

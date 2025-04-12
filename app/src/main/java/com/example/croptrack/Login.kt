@@ -34,7 +34,7 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences = requireContext().getSharedPreferences("my_pref", Context.MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         if(sharedPreferences.contains("phone") || sharedPreferences.contains("email")){
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.putExtra("phone", sharedPreferences.getString("phone", "Please add your Phone number"))
@@ -74,7 +74,7 @@ class Login : Fragment() {
                 requireActivity().finish()
             } else {
                 highLight(nameInputLayout, phoneInputLayout, emailInputLayout, passwordInputLayout)
-                loginErr.text = "Fill all the required details"
+                loginErr.text = getString(R.string.ipErr)
             }
         }
 
@@ -93,11 +93,13 @@ class Login : Fragment() {
         googleIconLayout.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
 
         facebookIconLayout.setOnClickListener {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 

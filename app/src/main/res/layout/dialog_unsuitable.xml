@@ -13,6 +13,7 @@
         android:layout_height="150dp" />
 
     <TextView
+        android:id="@+id/info"
         android:text="Soil is not suitable for farming."
         android:textSize="18sp"
         android:textStyle="bold"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/sub_info"
         android:text="Try adding fertilizer or changing water level"
         android:gravity="center"
         android:layout_marginTop="8dp"

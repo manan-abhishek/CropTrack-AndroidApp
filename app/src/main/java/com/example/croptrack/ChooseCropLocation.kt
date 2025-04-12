@@ -30,10 +30,13 @@ class ChooseCropLocation : Fragment() {
         val fieldArea: TextInputLayout = view.findViewById(R.id.fieldArea)
         val err: TextView = view.findViewById(R.id.err)
 
-        val area = fieldArea.editText?.text.toString()
-        val loc = location.editText?.text.toString()
-
         submitBtn.setOnClickListener {
+            val areaText = fieldArea.editText?.text
+            val locText = location.editText?.text
+
+            val area = areaText?.toString() ?: ""
+            val loc = locText?.toString() ?: ""
+
             val description = CropDescription().apply {
                 arguments = Bundle().apply {
                     putString("cropName", cropName)
@@ -41,28 +44,27 @@ class ChooseCropLocation : Fragment() {
                     putString("location", loc)
                 }
             }
-            if(area != null && loc != null) {
+            if(area.isNotEmpty() && loc.isNotEmpty()) {
                 Toast.makeText(
                     requireContext(),
                     "your details: $area and $loc are saved",
                     Toast.LENGTH_SHORT
                 ).show()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment, description)
+                    .addToBackStack(null)
+                    .commit()
             }else{
                 err.visibility = VISIBLE
-                if(area == null){
-                    fieldArea.boxStrokeColor = Color.parseColor("#f00")
+                if(area.isEmpty()){
+                    fieldArea.boxStrokeColor = Color.parseColor("#FF0000")
                     fieldArea.boxStrokeWidth = 2
                 }
-                if(loc == null){
-                    location.boxStrokeColor = Color.parseColor("#f00")
+                if(loc.isEmpty()){
+                    location.boxStrokeColor = Color.parseColor("#FF0000")
                     location.boxStrokeWidth = 2
                 }
             }
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment, description)
-                .addToBackStack(null)
-                .commit()
         }
 
         return view

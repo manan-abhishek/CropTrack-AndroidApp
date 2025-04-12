@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Soil Data"
+                    android:text="@string/soilData"
                     android:textStyle="bold"
                     android:textColor="#4BA26A"
                     android:textSize="18sp"
@@ -78,7 +78,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Soil Report"
+                    android:text="@string/soilReport"
                     android:textStyle="bold"
                     android:textColor="#4BA26A"
                     android:gravity="center"

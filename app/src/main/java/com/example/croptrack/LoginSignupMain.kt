@@ -20,8 +20,8 @@ class LoginSignupMain : AppCompatActivity() {
         val login: TextView = findViewById(R.id.login)
         val signup: TextView = findViewById(R.id.signup)
 
-        login.text = "Login"
-        signup.text = "Signup"
+        login.text = getString(R.string.Login)
+        signup.text = getString(R.string.Signup)
 
         var select = login
         loadFragment(Login())
