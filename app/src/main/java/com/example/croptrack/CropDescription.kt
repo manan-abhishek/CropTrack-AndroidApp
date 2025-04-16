@@ -1,13 +1,30 @@
 package com.example.croptrack
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 //data class Crops{
 //    val name: String,
@@ -17,6 +34,7 @@ import android.widget.Toast
 //    val area: String,
 //}
 class CropDescription : Fragment() {
+    lateinit var notificationData: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +45,12 @@ class CropDescription : Fragment() {
         val cropName = arguments?.getString("cropName")
         val area = arguments?.getString("area")
         val location = arguments?.getString("location")
+        val date = arguments?.getString("date")
 
         val cropImg: ImageView = view.findViewById(R.id.cropImg)
         val cropDes: TextView = view.findViewById(R.id.cropDes)
+
+
 
         if(cropName == "Wheat"){
             cropImg.setImageResource(R.drawable.wheat_image)
@@ -219,6 +240,134 @@ class CropDescription : Fragment() {
             Toast.makeText(requireContext(), "Buddy how you get there with name: $cropName, $area and $location", Toast.LENGTH_SHORT).show()
         }
 
+        val addCrop: Button = view.findViewById(R.id.addCrop)
+        addCrop.setOnClickListener {
+            val sharedPreferences = requireContext().getSharedPreferences("added_crops", Context.MODE_PRIVATE)
+            val id1 = sharedPreferences.getString("id", "0")?: "0"
+            var id = id1.toInt()
+            ++id
+            val cropData = "$cropName,$area,$location,0,$date" //name, area, location, progress, date
+            val editor = sharedPreferences.edit()
+            editor.putString("id", id.toString()) // for last id
+            editor.putString(id.toString(), cropData)// for data with id
+            editor.apply()
+
+            Toast.makeText(requireContext(), "Your crop added successfully with id: ${id}", Toast.LENGTH_SHORT).show()
+            addProgressThread(id)
+
+            val addedCrop = CropProgress_1()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment, addedCrop)
+                .addToBackStack("Home")
+                .commit()
+        }
+
         return view
+    }
+
+    private fun addProgressThread(cropId: Int){
+        val sharedPreferences = requireContext().getSharedPreferences("added_crops", Context.MODE_PRIVATE)
+
+        Thread {
+            var progress = 0.0f
+
+            while (progress < 100f) {
+                try {
+                    Thread.sleep(20000) // Sleep for 20 seconds
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "errorCatched", Toast.LENGTH_SHORT).show()
+                }
+
+                val cropData = sharedPreferences.getString(cropId.toString(), null)
+                if (cropData == null) {
+                    activity?.runOnUiThread {
+                        Toast.makeText(requireContext(), "Something went wrong...with id: $cropId", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    val cropInfo = cropData.split(",")
+                    if (cropInfo.size != 5) {
+                        activity?.runOnUiThread {
+                            Toast.makeText(requireContext(), "Crop data format is wrong in id: $cropId", Toast.LENGTH_SHORT).show()
+                        }
+                        break
+                    }
+
+                    var pg = cropInfo[3].toFloatOrNull() ?: 0.0f
+                    pg += 12.5f
+                    progress = pg
+                    val updated = "${cropInfo[0]},${cropInfo[1]},${cropInfo[2]},$progress,${cropInfo[4]}"
+                    sharedPreferences.edit().putString(cropId.toString(), updated).commit()
+                    Log.d("FromCropDes", "Progress saved: $progress")
+
+                    val sp = requireContext().getSharedPreferences("notify", Context.MODE_PRIVATE)
+                    var id = sp.getInt("nId", 0)
+                    val set = sp.getStringSet("notification_keys", emptySet())?.toMutableSet() ?: mutableSetOf()
+                    id += 1
+
+                    if(pg.toInt() == 100){
+                        notificationData = "${id},Your crop ${cropId} Fully growth,Click to know more"
+                    }else {
+                        notificationData = "${id},Your crop ${cropId} Going to next stage,Click to know more"
+                    }
+                    set.add(notificationData)
+                    sp.edit().putInt("nId", id).apply()
+                    sp.edit().putStringSet("notification_keys", set).apply()
+
+//                  NOTIFICATIONS:
+                    val notificationManager =
+                        requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                    val notifySound = Uri.parse("android.resource://${requireContext().packageName}/raw/notify_sound")
+
+                    // Create channel if required
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        val channel = NotificationChannel(
+                            "crop_notify",
+                            "cropNotification",
+                            NotificationManager.IMPORTANCE_DEFAULT
+                        )
+                        notificationManager.createNotificationChannel(channel)
+                    }
+
+                    val cirImg = BitmapFactory.decodeResource(resources, R.drawable.logo)
+                    val bgImage = BitmapFactory.decodeResource(resources, R.drawable.gov_yojna)
+
+                    // Intent to open MainActivity with extras (for navigating to fragment)
+                    val intent = Intent(requireContext(), MainActivity::class.java).apply {
+                        putExtra("open_crop_progress", "cropNotify") // You’ll use this to detect in MainActivity
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
+
+                    val pendingIntent = PendingIntent.getActivity(
+                        requireContext(),
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    )
+
+                    val notification = NotificationCompat.Builder(requireContext(), "crop_notify")
+                        .setSmallIcon(R.drawable.onion)
+                        .setContentTitle(if (pg.toInt() == 100) "Your crop with ID:$cropId is fully grown" else "Your crop $cropId Going to next stage")
+                        .setContentText("Click to know more")
+                        .setLargeIcon(cirImg)
+                        .setStyle(
+                            NotificationCompat.BigPictureStyle()
+                                .bigPicture(bgImage)
+                                .setSummaryText("Now check your crop is any infected or not...")
+                        )
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setSound(notifySound)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true)
+                        .build()
+
+                    notificationManager.notify(id, notification)
+                }
+
+                val MA = activity as MainActivity
+                MA.notificationCount.text = (MA.notificationCount.text.toString().toInt() + 1).toString()
+            }
+        }.start()
     }
 }

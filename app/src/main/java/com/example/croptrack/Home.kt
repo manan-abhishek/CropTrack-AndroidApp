@@ -39,6 +39,7 @@ class Home : Fragment() {
         )
 
         val card1: View = view.findViewById(R.id.card1)
+        val card2: View = view.findViewById(R.id.card2)
         val card3: View = view.findViewById(R.id.card3)
         val card4: View = view.findViewById(R.id.card4)
         val weatherCard: View = view.findViewById(R.id.weather_card)
@@ -57,6 +58,12 @@ class Home : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        card2.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment, CropProgress_1())
+                .addToBackStack(null)
+                .commit()
+        }
         card3.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment, SoilTest())
@@ -71,10 +78,6 @@ class Home : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val uri = result.data?.data
                 uri?.let { galleryUri ->
-//                    requireActivity().contentResolver.takePersistableUriPermission(
-//                        galleryUri,
-//                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                    )
                     val bundle = Bundle()
                     bundle.putString("image_uri", galleryUri.toString())
 
@@ -83,7 +86,7 @@ class Home : Fragment() {
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment, cropFragment)
-                        .addToBackStack(null)
+                        .addToBackStack("Home")
                         .commit()
                 }
             } else {
@@ -93,8 +96,8 @@ class Home : Fragment() {
         card4.setOnClickListener {
             ImagePicker.with(requireActivity())
                 .bothCameraGallery()
-                .cropFreeStyle()
-                .setMultipleAllowed(true)
+                .crop()
+                .setMultipleAllowed(false)
                 .createIntentFromDialog { intent ->
                     imagePickerLauncher.launch(intent)
                 }

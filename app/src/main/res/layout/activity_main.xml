@@ -13,8 +13,8 @@
         android:id="@+id/topToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BEE3CB"
-        android:paddingTop="16dp"
+        android:background="#4BA26A"
+        android:paddingTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -1,15 +1,25 @@
 package com.example.croptrack
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -23,6 +33,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     private var openImg: ImageView? = null
     private var openTxt: TextView? = null
+    lateinit var notificationCount: TextView
 
     public fun open(newImg: ImageView, newTxt: TextView) {
         openImg?.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
@@ -39,11 +50,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val openFragment = intent.getStringExtra("open_fragment")
+        if(openFragment == "yojna_fragment"){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, GovtYojna())
+                .addToBackStack("Home")
+                .commit()
+        }
+        val open_crop_progress = intent.getStringExtra("open_crop_progress")
+        if(open_crop_progress == "crop_progress"){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, CropProgress_1())
+                .addToBackStack("Home")
+                .commit()
+        }
+
+
         val logo: ImageView = findViewById(R.id.logo)
         val homeBtn: LinearLayout = findViewById(R.id.btnHome)
         val climateBtn: LinearLayout = findViewById(R.id.btnClimate)
         val reelBtn: LinearLayout = findViewById(R.id.btnReel)
         val rentBtn: LinearLayout = findViewById(R.id.btnRent)
+        val userPhoto: ImageView = findViewById(R.id.userPhoto)
 
         val homeIcon: ImageView = findViewById(R.id.homeIcon)
         val climateIcon: ImageView = findViewById(R.id.climateIcon)
@@ -57,7 +85,12 @@ class MainActivity : AppCompatActivity() {
 
         val langChanger: ImageView = findViewById(R.id.langChanger)
         val notification: ImageView = findViewById(R.id.notification)
-        val notificationCount: TextView = findViewById(R.id.notificationCount)
+        notificationCount = findViewById(R.id.notificationCount)
+
+        val sharedPref = this.getSharedPreferences("notify", Context.MODE_PRIVATE)
+        val notifications = sharedPref.getStringSet("notifications", setOf())
+        val size = notifications?.size?:0
+        notificationCount.text = size.toString()
 
         //        CHANGE THE bg OF THE NOTIFICATION bg
         val drawable = ContextCompat.getDrawable(this, R.drawable.circle_bg)?.mutate()
@@ -73,22 +106,26 @@ class MainActivity : AppCompatActivity() {
                 .commit()
             open(homeIcon, home)
         }
+        userPhoto.setOnClickListener {
+            val sp = this.getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            val editor = sp.edit()
+            editor.clear()
+            editor.apply()
+            val intent = Intent(this, LoginSignupMain::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         langChanger.setOnClickListener {
             showLangMenu()
         }
 
-        notificationCount.text = "1";
-        notification.setOnClickListener{
-            val n = notificationCount.text.toString().toInt()
-            if (n < 5 && notificationCount.visibility == TextView.VISIBLE) {
-                notificationCount.text = (n+1).toString()
-            } else if(n == 5 && notificationCount.visibility == TextView.VISIBLE) {
-                notificationCount.visibility = TextView.INVISIBLE
-                notificationCount.text = "1"
-            }else{
-                notificationCount.visibility = TextView.VISIBLE
-            }
+        notification.setOnClickListener {
+            val notifyFrag = Notifications()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, notifyFrag)
+                .addToBackStack("Home")
+                .commit()
         }
 
         openImg = homeIcon
@@ -129,6 +166,7 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, fragment)
+            .addToBackStack("null")
             .commit()
     }
 

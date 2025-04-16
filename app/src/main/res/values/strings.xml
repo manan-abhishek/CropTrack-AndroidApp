@@ -61,6 +61,8 @@ Farmers can register for PM-KISAN online or through local agriculture offices. T
     <string name="soilData">Soil Data</string>
     <string name="soilReport">Soil Report</string>
     <string name="download">Download</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

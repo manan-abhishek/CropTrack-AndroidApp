@@ -56,10 +56,6 @@ class CropImage : Fragment() {
                 val uri = result.data?.data
                 uri?.let { galleryUri ->
                     try {
-                        requireActivity().contentResolver.takePersistableUriPermission(
-                            galleryUri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
                         img.setImageURI(galleryUri)
                         selectedBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, galleryUri)
                     } catch (e: Exception) {
@@ -75,11 +71,12 @@ class CropImage : Fragment() {
         // Retake or pick image
         retakeBtn.setOnClickListener {
             ImagePicker.with(requireActivity())
-                .cameraOnly() // change to .bothCameraGallery() if both needed
-                .cropFreeStyle()
-                .galleryMimeTypes( // Optional mime types
+                .bothCameraGallery()
+                .crop()
+                .galleryMimeTypes(
                     mimeTypes = arrayOf("image/png", "image/jpg", "image/jpeg")
                 )
+                .setMultipleAllowed(false)
                 .createIntentFromDialog { intent ->
                     imagePickerLauncher.launch(intent)
                 }
