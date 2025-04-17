@@ -22,6 +22,8 @@ class Climate : Fragment() {
             mainActivity.getClimateText()
         )
 
+
+
         return view
     }
 }
