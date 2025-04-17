@@ -62,4 +62,24 @@
     <string name="soilData">मिट्टी डेटा</string>
     <string name="soilReport">मिट्टी रिपोर्ट</string>
     <string name="download">डाउनलोड करें</string>
+
+
+<!--    abhishek-->
+    <string name="weather_matters_nwe_ve_got_the_details">मौसम महत्वपूर्ण है, हमारे पास विवरण हैं</string>
+    <string name="_00_00_c">00:00 ºC</string>
+    <string name="textview">पाठ दृश्य</string>
+    <string name="_0000_hpa">0000 hPa</string>
+    <string name="humidity">नमी</string>
+    <string name="_00_00">00:00</string>
+    <string name="sea">समुद्र</string>
+    <string name="sunset">सूर्यास्त</string>
+    <string name="sunrise">सूर्योदय</string>
+    <string name="condition">स्थिति</string>
+    <string name="sunny">धूप</string>
+    <string name="wind_speed">हवा की गति</string>
+    <string name="_0_00_m_s">0.00 मी/से</string>
+    <string name="_11_april_2025">11 अप्रैल 2025</string>
+    <string name="tuesday">मंगलवार</string>
+    <string name="city_name">शहर का नाम</string>
+    <string name="max_00_00_c">अधिकतम: 00:00ºC</string>
 </resources>
