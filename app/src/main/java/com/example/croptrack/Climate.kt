@@ -32,7 +32,7 @@ class Climate : Fragment() {
         _binding = FragmentClimateBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        // Update toolbar in MainActivity
+
         (activity as? MainActivity)?.open(
             (activity as MainActivity).getClimateIcon(),
             (activity as MainActivity).getClimateText()
@@ -74,7 +74,7 @@ class Climate : Fragment() {
 
         val call = retrofit.getCurrentWeatherData(
             cityName,
-            "4fb99c42793edc9138bc74907628154f", // consider moving to secure storage
+            "4fb99c42793edc9138bc74907628154f",
             "metric"
         )
 
@@ -83,7 +83,7 @@ class Climate : Fragment() {
             override fun onResponse(call: Call<WeatherApp>, response: Response<WeatherApp>) {
                 val data = response.body()
                 if (response.isSuccessful && data != null) {
-                    // Extract fields
+
                     val temp = data.main.temp.toString()
                     val humidity = data.main.humidity
                     val wind = data.wind.speed
@@ -94,7 +94,7 @@ class Climate : Fragment() {
                     val rise = data.sys.sunrise.toLong()
                     val set = data.sys.sunset.toLong()
 
-                    // Update UI
+
                     binding.temp.text = "$temp °C"
                     binding.condition.text = condition
                     binding.maxTemp.text = "Max Temp: $maxT °C"
