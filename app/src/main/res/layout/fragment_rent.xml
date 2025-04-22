@@ -1,20 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollRent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Rent">
+    android:fillViewport="true"
+    android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/linearLayoutRent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <!-- Title -->
         <TextView
+            android:id="@+id/tvRentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rent Farming Equipments"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Equipment Item 1: Tractor -->
+        <LinearLayout
+            android:id="@+id/itemTractor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="RENT" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img"
+                android:contentDescription="Tractor"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tractor"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 2: Combine Harvester -->
+        <LinearLayout
+            android:id="@+id/itemCombine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_1"
+                android:contentDescription="Combine Harvester"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Combine Harvester"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 3: Plough -->
+        <LinearLayout
+            android:id="@+id/itemPlough"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_2"
+                android:contentDescription="Plough"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plough"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 4: Rotavator -->
+        <LinearLayout
+            android:id="@+id/itemRotavator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_3"
+                android:contentDescription="Rotavator"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rotavator"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 5: Seeder -->
+        <LinearLayout
+            android:id="@+id/itemSeeder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_4"
+                android:contentDescription="Seeder"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seeder"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 6: Sprayer -->
+        <LinearLayout
+            android:id="@+id/itemSprayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_5"
+                android:contentDescription="Sprayer"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sprayer"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 7: Baler -->
+        <LinearLayout
+            android:id="@+id/itemBaler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_6"
+                android:contentDescription="Baler"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Baler"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 8: Irrigation System -->
+        <LinearLayout
+            android:id="@+id/itemIrrigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_7"
+                android:contentDescription="Irrigation System"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Irrigation System"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Equipment Item 9: Mini Loader -->
+        <LinearLayout
+            android:id="@+id/itemMiniLoader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/img_8"
+                android:contentDescription="Mini Loader"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mini Loader"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- My Bookings button -->
+        <Button
+            android:id="@+id/btnMyBookings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Bookings"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"/>
 
     </LinearLayout>
-
-</FrameLayout>
+</ScrollView>

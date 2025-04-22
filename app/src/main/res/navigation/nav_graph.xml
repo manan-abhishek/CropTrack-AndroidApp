@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/rent">
+
+    <!-- Rent Fragment -->
+    <fragment
+        android:id="@+id/rent"
+        android:name="com.example.croptrack.Rent"
+        android:label="Rent">
+        <action
+            android:id="@+id/action_rent_to_equipmentDetailsFragment"
+            app:destination="@id/EquipmentDetailsFragment" />
+        <action
+            android:id="@+id/action_rent_to_myBookingsFragment"
+            app:destination="@id/MyBookingsFragment" />
+    </fragment>
+
+    <!-- Equipment List Fragment -->
+    <fragment
+        android:id="@+id/EquipmentListFragment"
+        android:name="com.example.croptrack.EquipmentListFragment"
+        android:label="Equipment List">
+        <action
+            android:id="@+id/action_equipmentListFragment_to_equipmentDetailsFragment"
+            app:destination="@id/EquipmentDetailsFragment" />
+    </fragment>
+
+    <!-- Equipment Details Fragment -->
+    <fragment
+        android:id="@+id/EquipmentDetailsFragment"
+        android:name="com.example.croptrack.EquipmentDetailsFragment"
+        android:label="Equipment Details">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="imageResId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_equipmentDetailsFragment_to_bookingFormFragment"
+            app:destination="@id/BookingFormFragment" />
+        <action
+            android:id="@+id/action_equipmentDetailsFragment_to_myBookingsFragment"
+            app:destination="@id/MyBookingsFragment" />
+    </fragment>
+
+    <!-- Booking Form Fragment -->
+    <fragment
+        android:id="@+id/BookingFormFragment"
+        android:name="com.example.croptrack.BookingFormFragment"
+        android:label="Booking Form">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="imageResId"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- My Bookings Fragment -->
+    <fragment
+        android:id="@+id/MyBookingsFragment"
+        android:name="com.example.croptrack.MyBookingsFragment"
+        android:label="My Bookings" />
+</navigation>

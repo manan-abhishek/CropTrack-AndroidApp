@@ -72,7 +72,6 @@
         android:layout_marginEnd="-6dp"
         android:visibility="visible"/>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
@@ -83,8 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topToolbar"/>
 
-
-    <!--    Lang changer-->
+    <!-- Lang changer-->
     <ImageView
         android:id="@+id/langChanger"
         android:layout_width="36dp"
@@ -97,15 +95,16 @@
         app:layout_constraintBottom_toTopOf="@id/bottomToolbar"
         app:layout_constraintEnd_toEndOf="@+id/topToolbar"
         app:tint="#4BA26A" />
+
     <!-- Bottom Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottomToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottomtoolbarlayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="56dp"
+        android:background="#4BA26A"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -216,8 +215,22 @@
                     android:text="@string/rent"
                     android:textColor="@android:color/white"
                     android:textSize="12sp" />
+                <FrameLayout
+                    android:id="@+id/fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_fragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:navGraph="@navigation/nav_graph"
+                    app:defaultNavHost="true" />
+
             </LinearLayout>
+
         </LinearLayout>
+
 
     </androidx.appcompat.widget.Toolbar>
 

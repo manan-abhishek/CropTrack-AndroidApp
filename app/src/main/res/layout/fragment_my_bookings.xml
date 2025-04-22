@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_my_bookings_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- (Optional) Nested NavHost for child‐fragment navigation inside MyBookings -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_booking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="false" />
+
+    <!-- Your bookings list -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ListView
+            android:id="@+id/lvBookings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="8dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
