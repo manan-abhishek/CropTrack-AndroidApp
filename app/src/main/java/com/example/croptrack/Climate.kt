@@ -23,6 +23,7 @@ class Climate : Fragment() {
 
     private var _binding: FragmentClimateBinding? = null
     private val binding get() = _binding!!
+    private var weatherCall: Call<WeatherApp>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +50,8 @@ class Climate : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Cancel any in-flight weather request to avoid callbacks after view is destroyed
+        weatherCall?.cancel()
         _binding = null
     }
 
@@ -72,43 +75,48 @@ class Climate : Fragment() {
             .build()
             .create(ApiInterface::class.java)
 
-        val call = retrofit.getCurrentWeatherData(
+        weatherCall = retrofit.getCurrentWeatherData(
             cityName,
             "4fb99c42793edc9138bc74907628154f", // consider moving to secure storage
             "metric"
         )
 
-        call.enqueue(object : Callback<WeatherApp> {
+        weatherCall?.enqueue(object : Callback<WeatherApp> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<WeatherApp>, response: Response<WeatherApp>) {
                 val data = response.body()
                 if (response.isSuccessful && data != null) {
-                    // Extract fields
-                    val temp = data.main.temp.toString()
-                    val humidity = data.main.humidity
-                    val wind = data.wind.speed
-                    val sea = data.main.pressure
-                    val condition = data.weather.firstOrNull()?.main ?: "Unknown"
-                    val maxT = data.main.temp_max
-                    val minT = data.main.temp_min
-                    val rise = data.sys.sunrise.toLong()
-                    val set = data.sys.sunset.toLong()
+                    _binding?.let { bind ->
+                        // Extract fields
+                        val temp = data.main.temp.toString()
+                        val humidity = data.main.humidity
+                        val wind = data.wind.speed
+                        val sea = data.main.pressure
+                        val condition = data.weather.firstOrNull()?.main ?: "Unknown"
+                        val maxT = data.main.temp_max
+                        val minT = data.main.temp_min
+                        val rise = data.sys.sunrise.toLong()
+                        val set = data.sys.sunset.toLong()
 
-                    // Update UI
-                    binding.temp.text = "$temp °C"
-                    binding.condition.text = condition
-                    binding.maxTemp.text = "Max Temp: $maxT °C"
-                    binding.minTemp.text = "Min Temp: $minT °C"
-                    binding.humidity.text = "$humidity %"
-                    binding.windspeed.text = "$wind m/s"
-                    binding.sea.text = "$sea hPa"
-                    binding.sunrise.text = formatTime(rise)
-                    binding.sunset.text = formatTime(set)
-                    binding.day.text = formatDay(System.currentTimeMillis())
-                    binding.date.text = formatDate()
-                    binding.cityName.text = cityName
+                        // Update UI
+                        with(bind) {
+                            bind.temp.text      = "$temp °C"
+                            bind.condition.text = condition
+                            bind.maxTemp.text   = "Max Temp: $maxT °C"
+                            bind.minTemp.text   = "Min Temp: $minT °C"
+                            bind.humidity.text  = "$humidity %"
+                            bind.windspeed.text = "$wind m/s"
+                            bind.sea.text       = "$sea hPa"
+                            bind.sunrise.text   = formatTime(rise)
+                            bind.sunset.text    = formatTime(set)
+                            bind.day.text       = formatDay(System.currentTimeMillis())
+                            bind.date.text      = formatDate()
+                            bind.cityName.text  = cityName
+                        }
 
-                    applyWeatherAnimation(condition)
+                        // Play animation based on condition
+                        applyWeatherAnimation(condition)
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }

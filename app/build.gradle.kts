@@ -55,8 +55,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 //    abhishek
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+// Retrofit core
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+// Retrofit → Gson converter
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
 
 configurations.all {
