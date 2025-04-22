@@ -34,6 +34,7 @@ class SplashScreen : AppCompatActivity() {
         }
         th.start()
     }
+
     private fun setAppLang() {
         val prefs = getSharedPreferences("AppSetting", MODE_PRIVATE)
         val lang = prefs.getString("App_Lang", null)
