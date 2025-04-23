@@ -1,31 +1,18 @@
 package com.example.croptrack
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.croptrack.Climate
-import com.example.croptrack.R
-import com.example.croptrack.Reel
 import com.example.croptrack.Rent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Locale
@@ -65,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-
         val logo: ImageView = findViewById(R.id.logo)
         val homeBtn: LinearLayout = findViewById(R.id.btnHome)
         val climateBtn: LinearLayout = findViewById(R.id.btnClimate)
@@ -89,13 +75,12 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = this.getSharedPreferences("notify", Context.MODE_PRIVATE)
         val notifications = sharedPref.getStringSet("notifications", setOf())
-        val size = notifications?.size?:0
+        val size = notifications?.size ?: 0
         notificationCount.text = size.toString()
 
-        //        CHANGE THE bg OF THE NOTIFICATION bg
         val drawable = ContextCompat.getDrawable(this, R.drawable.circle_bg)?.mutate()
         if (drawable is GradientDrawable) {
-            drawable.setColor(Color.parseColor("#FF5722")) // change to any color you want
+            drawable.setColor(Color.parseColor("#FF5722"))
         }
         notificationCount.background = drawable
 
@@ -106,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
             open(homeIcon, home)
         }
+
         userPhoto.setOnClickListener {
             val sp = this.getSharedPreferences("user_data", Context.MODE_PRIVATE)
             val editor = sp.edit()
@@ -139,22 +125,27 @@ class MainActivity : AppCompatActivity() {
                 openFragment(Home())
             }
         }
+
         climateBtn.setOnClickListener {
             if (openImg != climateIcon) {
                 open(climateIcon, climate)
                 openFragment(Climate())
             }
         }
+
         reelBtn.setOnClickListener {
             if (openImg != reelIcon) {
                 open(reelIcon, reel)
                 openFragment(Reel())
             }
         }
+
         rentBtn.setOnClickListener {
+            // Navigate to Rent activity instead of opening a fragment
             if (openImg != rentIcon) {
                 open(rentIcon, rent)
-                openFragment(Rent())
+                val intent = Intent(this, Rent::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -166,7 +157,7 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, fragment)
-            .addToBackStack("null")
+            .addToBackStack(null)
             .commit()
     }
 
@@ -187,6 +178,7 @@ class MainActivity : AppCompatActivity() {
         val currentLang = Locale.getDefault().language
         Toast.makeText(this, "Now your app language: $currentLang", Toast.LENGTH_SHORT).show()
     }
+
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
