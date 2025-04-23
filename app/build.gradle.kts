@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
     implementation("androidx.core:core-ktx:1.15.0") {
         exclude(group = "com.google.guava", module = "guava")
     }
@@ -51,12 +53,16 @@ dependencies {
     implementation("com.hbb20:ccp:2.7.3")
     implementation("com.github.Drjacky:ImagePicker:2.3.22")
     implementation("androidx.databinding:compiler:3.2.0-alpha11")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 //    abhishek
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+// Retrofit core
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+// Retrofit → Gson converter
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
 
 configurations.all {

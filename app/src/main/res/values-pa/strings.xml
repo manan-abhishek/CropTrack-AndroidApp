@@ -84,4 +84,7 @@
     <string name="tuesday">ਮੰਗਲਵਾਰ</string>
     <string name="city_name">ਸ਼ਹਿਰ ਦਾ ਨਾਂ</string>
     <string name="max_00_00_c">ਵੱਧੋ ਵੱਧ: 00:00ºC</string>
+
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
+
 </resources>
