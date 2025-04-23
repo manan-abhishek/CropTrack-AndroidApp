@@ -62,7 +62,7 @@ Farmers can register for PM-KISAN online or through local agriculture offices. T
     <string name="soilReport">Soil Report</string>
     <string name="download">Download</string>
 
-<!--    ABHISHEK-->
+    <!--    ABHISHEK-->
     <string name="weather_matters_nwe_ve_got_the_details" />
     <string name="_00_00_c">00:00 ºC</string>
     <string name="textview">TextView</string>
@@ -80,6 +80,7 @@ Farmers can register for PM-KISAN online or through local agriculture offices. T
     <string name="tuesday">Tuesday</string>
     <string name="city_name">City Name</string>
     <string name="max_00_00_c">Max: 00:00ºC</string>
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
 
 
 </resources>

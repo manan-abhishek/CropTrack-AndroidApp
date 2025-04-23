@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.croptrack.Rent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Locale
 
@@ -140,9 +141,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         rentBtn.setOnClickListener {
+            // Navigate to Rent activity instead of opening a fragment
             if (openImg != rentIcon) {
                 open(rentIcon, rent)
-                openFragment(Rent())
+                val intent = Intent(this, Rent::class.java)
+                startActivity(intent)
             }
         }
     }
