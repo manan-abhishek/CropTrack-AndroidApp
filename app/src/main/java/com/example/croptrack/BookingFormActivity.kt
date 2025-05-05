@@ -36,7 +36,7 @@ class BookingFormActivity : AppCompatActivity() {
                     putString("${bookingKey}_date", date)
                     putInt("${bookingKey}_image", equipmentImage)
                     apply()
-                }
+                   }
 
                 Toast.makeText(this, "Booking Submitted!", Toast.LENGTH_LONG).show()
                 finish()
