@@ -1,0 +1,5 @@
+CropTrack is an Android-based mobile application designed to assist farmers and agricultural professionals in tracking the real-time growth stages of their crops while also managing essential farming resources. The app leverages modern technologies to provide users with timely insights about their fields, helping them make informed decisions for better crop management and yield optimization.
+
+In addition to real-time crop monitoring, CropTrack features an Equipment Renting menu, where users can browse, rent, and manage farming equipment easily through the app. This service simplifies access to necessary machinery, reducing the burden of equipment ownership and promoting cost-effective farming practices.
+
+The application includes features like weather forecasting (using Retrofit in Kotlin), crop stage estimation, field tracking, equipment rentals, and activity reminders — all integrated within an intuitive user interface built with View Binding. CropTrack aims to reduce guesswork in farming, improve productivity, and make agricultural operations smarter, more efficient, and accessible for everyone.
